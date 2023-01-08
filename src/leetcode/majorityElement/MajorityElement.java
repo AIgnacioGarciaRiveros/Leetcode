@@ -7,7 +7,7 @@ import java.util.Map;
 public class MajorityElement {
 
     //Boyer-Moore Voting Algorithm
-    public static int majorityElement(int[] nums) {
+    public  int majorityElement(int[] nums) {
         int count = 0;
         int candidate = 0;
         for (int num : nums) {
@@ -24,12 +24,12 @@ public class MajorityElement {
     }
 
     // Sorting
-    public static int majorityElement1(int[] nums) {
+    public  int majorityElement1(int[] nums) {
         Arrays.sort(nums);
         return nums[nums.length/2];
     }
     //HashMap
-    public static int majorityElement2(int[] nums) {
+    public  int majorityElement2(int[] nums) {
         Map<Integer, Integer> myMap = new HashMap<Integer, Integer>();
         int ret=0;
         for (int num: nums) {
