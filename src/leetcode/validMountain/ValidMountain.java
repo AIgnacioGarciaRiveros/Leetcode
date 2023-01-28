@@ -1,52 +1,51 @@
 package leetcode.validMountain;
 
 public class ValidMountain {
-    public  boolean validMountainArray2(int[] arr) {
-        //it works
-        if(arr.length <3)
+
+    public static boolean validMountainArray(int[] arr) {
+        if (arr == null || arr.length < 3) {
             return false;
-        boolean increment=true;
-        boolean decrement=false;
-        int incrementExist=0,decrementExist=0;
-
-        for(int i=0;i<arr.length-1;i++)
-        {
-            if(arr[i]<arr[i+1] && increment)
-                incrementExist=1;
-            if(arr[i]>arr[i+1])
-            {
-                decrement=true;
-                decrementExist=1;
-            }
-
-            if(decrement &&arr[i]<arr[i+1])
-                return false;
-            if(arr[i]==arr[i+1])
-                return false;
         }
-        return incrementExist!=0 && decrementExist!=0;
+        int leftTop = 0;
+        int rightTop = arr.length - 1;
+        while (leftTop < arr.length -2) {
+            if (arr[leftTop] < arr[leftTop + 1]) {
+                leftTop++;
+            } else {
+                break;
+            }
+        }
+        while (rightTop > 1) {
+            if (arr[rightTop] < arr[rightTop - 1]) {
+                rightTop--;
+            } else {
+                break;
+            }
+        }
+        return leftTop == rightTop;
     }
-    public  boolean validMountainArray(int[] arr) {
+    public boolean validMountainArray2(int[] arr) {
         if(arr.length <3)
             return false;
-        int startingToDecrement=0;
-        int startingToIncrement=0;
+        boolean isMountainGrowing=false;
+        boolean isMountainDecreasing=false;
+
         for(int i=0;i<arr.length-1;i++)
         {
-            if(arr[i+1]<arr[i])
+            if(arr[i]<arr[i+1])
             {
-                startingToDecrement=1;
-            }
-            if(startingToDecrement!=0 &&(arr[i+1]>arr[i]))
-            {
+                isMountainGrowing=true;
+            }else if(arr[i]>arr[i+1]){
+                isMountainDecreasing=true;
+            }else{//equals
                 return false;
             }
-            if(arr[i]==arr[i+1])
-                return false;
 
+            if(isMountainDecreasing &&(arr[i]<arr[i+1]))
+            {
+                return false;
+            }
         }
-
-        //return true;
-        return (startingToDecrement == 0) ? false: true;
+        return isMountainGrowing&&isMountainDecreasing;
     }
 }
